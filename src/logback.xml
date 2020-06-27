@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="false" debug="true">
+    
+    <property name="LOG_PATH" value="./log" />
+    <timestamp key="LOG_DATE" datePattern="yyyyMMdd"/>
+    
+    <!-- Console -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level %logger{36} %msg%n</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- ./log/NET_YYYYMMDD.log -->
+    <appender name="NET" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/NET_${LOG_DATE}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %-33logger{33} %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/%d{yyyyMMdd}/NET.%d{yyyyMMdd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    
+        
+
+    
+    <!-- 모든 대상에 STDOUT Appender 적용하고 level이 info 이하인 것 설정 -->
+    <root name="org.asterisk" level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <logger name="org.asterisk.netty" level="info">
+        <appender-ref ref="NET" />
+    </logger>
+
+ 
+</configuration>
