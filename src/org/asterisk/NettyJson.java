@@ -14,7 +14,7 @@ public class NettyJson {
     public NettyJson() {
         try{
             _Service = new NettyServer();
-            _Service.startService();
+            _Service.startService(20000);
         }catch(Exception ex){
             _Logger.error( "* NettyJson Exception:", ex );
         }
