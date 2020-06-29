@@ -2,17 +2,20 @@ package org.asterisk.netty.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
+import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import org.asterisk.netty.ISession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
 
-public class NettyServer {
+public class NettyServer implements ISession {
 
     private EventLoopGroup bossGroup = null;
     private EventLoopGroup  workerGroup = null;
@@ -33,19 +36,27 @@ public class NettyServer {
     public void startService(int port){
         try{
             _Logger.error( "-- startService ");
+            bossGroup = new NioEventLoopGroup();
+            workerGroup = new NioEventLoopGroup();
+            
             bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
-                .channel(NioServerSocketChannel.class) // (3)
-                .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
+                .channel(NioServerSocketChannel.class)
+                /*
+                .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
                         ch.pipeline().addLast(new ServerHandler());
                     }
                 })
-                .option(ChannelOption.SO_BACKLOG, 128)          // (5)
-                .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
+                */
+                .handler(new LoggingHandler(LogLevel.DEBUG))
+                .childHandler(new ServerInitializer(this))
+                .option(ChannelOption.SO_BACKLOG, 128)
+                .childOption(ChannelOption.SO_KEEPALIVE, true);
 
             // Bind and start to accept incoming connections.
+            _Logger.info(" - Binding.. ");
             future = bootstrap.bind(port).sync(); // (7)
 
             // Wait until the server socket is closed.
@@ -66,7 +77,27 @@ public class NettyServer {
             _Logger.error( "* stopService Exception:", ex );
         }
     }
+
     
-    
+    //
+    // Evetns
+    @Override
+    public void OnChannelActive( ChannelHandlerContext ctx ) {
+        try{
+            _Logger.info(" - OnChannelActive : ");
+
+        }catch(Exception ex){
+            _Logger.error( "* OnChannelActive Exception:", ex );
+        }
+    }
+    @Override
+    public void OnChannelInactive( ChannelHandlerContext ctx ) {
+        try{
+            _Logger.info(" - OnChannelInactive : ");
+
+        }catch(Exception ex){
+            _Logger.error( "* OnChannelInactive Exception:", ex );
+        }
+    }
     
 }

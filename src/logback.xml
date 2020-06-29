@@ -30,7 +30,7 @@
 
     
     <!-- 모든 대상에 STDOUT Appender 적용하고 level이 info 이하인 것 설정 -->
-    <root name="org.asterisk" level="info">
+    <root name="org.asterisk" level="debug">
         <appender-ref ref="STDOUT" />
     </root>
     <logger name="org.asterisk.netty" level="info">

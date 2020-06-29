@@ -1,13 +1,12 @@
 package org.asterisk.netty.server;
 
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.concurrent.EventExecutorGroup;
+import org.asterisk.netty.packet.Packet;
+import org.asterisk.netty.server.handler.ChannelInboundHandlerBase;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ServerHandler extends ChannelInboundHandlerAdapter {
+public class ServerHandler extends ChannelInboundHandlerBase<Packet>{
 
 
 
@@ -15,7 +14,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public ServerHandler() {
         super();
         try{
-            _Logger.error( "----    ServerHandler    ----");
+            _Logger.info( "----    ServerHandler    ----");
 
         }catch(Exception ex){
             _Logger.error( "* ServerHandler Exception:", ex );
@@ -23,40 +22,22 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        super.channelInactive(ctx);
-        try{
-
-        }catch(Exception ex){
-            _Logger.error( "* channelInactive Exception:", ex );
-        }
-    }
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        super.channelRead(ctx, msg);
-        try{
-
-        }catch(Exception ex){
-            _Logger.error( "* channelRead Exception:", ex );
-        }
-    }
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        super.channelActive(ctx);
-        try{
-
-        }catch(Exception ex){
-            _Logger.error( "* channelActive Exception:", ex );
-        }
+    public boolean acceptInboundMessage(Object msg) throws Exception {
+        return super.acceptInboundMessage(msg);
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        super.exceptionCaught(ctx, cause);
+    protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
         try{
+            _Logger.info(" - channelRead0 ");
+            _Logger.info("  Server < [{}][{}] ", packet.getType(), packet.getMessage());
+            
+            Thread.sleep(500);
+            Packet response = new Packet(Packet.MessageType.TargetPositionRequest, "{12345678}");
+            ctx.writeAndFlush(response);
 
         }catch(Exception ex){
-            _Logger.error( "* exceptionCaught Exception:", ex );
+            _Logger.error( "* channelRead0 Exception:", ex );
         }
     }
 }
