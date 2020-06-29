@@ -3,7 +3,9 @@
 
 Server
     1) Execute Server
+
         - java -jar .\dist\NettyJson.jar
+
     2) Log
 
         [2020-06-29 14:07:34] DEBUG io.netty.buffer.AbstractByteBuf -Dio.netty.buffer.checkAccessible: true
@@ -42,7 +44,9 @@ Server
 
 
 Client
+
     1) Execute client
+
         - java -cp .\dist\NettyJson.jar org.asterisk.netty.client.NettyClient
 
     2) Log
