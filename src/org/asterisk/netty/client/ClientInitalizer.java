@@ -52,6 +52,7 @@ public class ClientInitalizer extends ChannelInitializer<SocketChannel> {
             BEFORE DECODE (15 bytes)                       AFTER DECODE (13 bytes)
             +--------+------+----------------+      +------+----------------+
             | Length | HDR2 | Actual Content |----->| HDR2 | Actual Content |
+            +--------+------+----------------+      +------+----------------+
             | 0x0010 | 0xFE | "HELLO, WORLD" |      | 0xFE | "HELLO, WORLD" |
             +--------+------+----------------+      +------+----------------+
                 2       1           12                  1          12        

@@ -56,7 +56,6 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("FrameEncoder", new LengthFieldPrepender(2, true));
         pipeline.addLast("FrameDecoder", new LengthFieldBasedFrameDecoder(0x80000, 0, 2, -2, 2));
         
-        _Logger.info(" - Initialize Json pack");
         pipeline.addLast("JsonEncoder", new JsonEncoder());
         pipeline.addLast("JsonDecoder", new JsonDecoder());
         pipeline.addLast("ServerHandler", new ServerHandler());
@@ -64,6 +63,18 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("ChannelActiveHandler", new ChannelOnActiveHandler(_Listener));
         pipeline.addLast("ChannelInactiveHandler", new ChannelOnInactiveHandler(_Listener));
         pipeline.addLast("ExceptionHandler", new ChannelOnExceptionHandler());
+        
+        /*
+        // outbound sequence ↑  
+        cp.addLast(baseOutboundHandler);    // (3)
+        cp.addLast(packetEncoder);          // (2)
+        cp.addLast(byteArrayEncoder);       // (1)
+
+        // inbound sequence ↓
+        cp.addLast(byteArrayDecoder);       // (1)
+        cp.addLast(packetDecoder);          // (2)
+        cp.addLast(baseInboundHandler);     // (3)
+        */
     }
 
 }

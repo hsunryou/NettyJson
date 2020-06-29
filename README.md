@@ -2,6 +2,7 @@
 
 
 Server
+
     1) Execute Server
 
         - java -jar .\dist\NettyJson.jar
@@ -92,3 +93,12 @@ Client
         [2020-06-29 14:07:35] INFO  o.a.n.client.handler.ClientHandler  - channelRead0
         [2020-06-29 14:07:35] INFO  o.a.n.client.handler.ClientHandler  Client < [TargetPositionRequest][{12345678}]
         [2020-06-29 14:07:35] DEBUG i.n.handler.logging.LoggingHandler [id: 0x840d6fa4, L:/127.0.0.1:49354 - R:/127.0.0.1:20000] READ COMPLETE
+
+
+
+
+Reference Site for Debugging
+
+    - https://www.rapidtables.com/convert/number/hex-to-ascii.html
+    - https://github.com/Gompangs/GNetServer/blob/master/src/main/java/com/gompang/server/NetServer.java
+
