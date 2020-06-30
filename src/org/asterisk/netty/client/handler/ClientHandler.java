@@ -24,7 +24,7 @@ public class ClientHandler extends ChannelInboundHandlerBase<Packet>{
     @Override
     protected void channelRead0( ChannelHandlerContext chc, Packet packet ) throws Exception {
         _Logger.info(" - channelRead0 ");
-        _Logger.info(" Client < [{}][{}] ", packet.getType(), packet.getMessage());
+        _Logger.info(" Client < [{}][{}] ", packet.getMessageFormat(), packet.getMessage());
         
     }
 

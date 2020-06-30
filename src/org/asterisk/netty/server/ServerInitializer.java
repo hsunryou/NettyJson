@@ -1,5 +1,6 @@
 package org.asterisk.netty.server;
 
+import org.asterisk.netty.server.handler.ServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
@@ -58,6 +59,9 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
         
         pipeline.addLast("JsonEncoder", new JsonEncoder());
         pipeline.addLast("JsonDecoder", new JsonDecoder());
+        
+        // Packet --> Message
+        
         pipeline.addLast("ServerHandler", new ServerHandler());
 
         pipeline.addLast("ChannelActiveHandler", new ChannelOnActiveHandler(_Listener));

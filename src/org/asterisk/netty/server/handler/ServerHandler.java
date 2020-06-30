@@ -1,4 +1,4 @@
-package org.asterisk.netty.server;
+package org.asterisk.netty.server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import org.asterisk.netty.packet.Packet;
@@ -30,10 +30,10 @@ public class ServerHandler extends ChannelInboundHandlerBase<Packet>{
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
         try{
             _Logger.info(" - channelRead0 ");
-            _Logger.info("  Server < [{}][{}] ", packet.getType(), packet.getMessage());
+            _Logger.info("  Server < [{}][{}] ", packet.getMessageFormat(), packet.getMessage());
             
             Thread.sleep(500);
-            Packet response = new Packet(Packet.MessageType.TargetPositionRequest, "{12345678}");
+            Packet response = new Packet(Packet.MessageFormat.PacketResponse, packet.getMessageType(), "{12345678}");
             ctx.writeAndFlush(response);
 
         }catch(Exception ex){

@@ -30,7 +30,6 @@ public class JsonDecoder extends MessageToMessageDecoder<ByteBuf> {
     public JsonDecoder() {
         _Logger.info(" - JsonDecoder ");
     }
-    
 
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {

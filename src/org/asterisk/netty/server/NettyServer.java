@@ -42,14 +42,6 @@ public class NettyServer implements ISession {
             bootstrap = new ServerBootstrap();
             bootstrap.group(bossGroup, workerGroup)
                 .channel(NioServerSocketChannel.class)
-                /*
-                .childHandler(new ChannelInitializer<SocketChannel>() {
-                    @Override
-                    public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new ServerHandler());
-                    }
-                })
-                */
                 .handler(new LoggingHandler(LogLevel.DEBUG))
                 .childHandler(new ServerInitializer(this))
                 .option(ChannelOption.SO_BACKLOG, 128)

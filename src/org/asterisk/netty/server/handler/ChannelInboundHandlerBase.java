@@ -4,6 +4,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 public abstract class ChannelInboundHandlerBase<T> extends SimpleChannelInboundHandler<T> {
     
+    
+    
     /*
     protected void sendMetaDataToClient(ChannelHandlerContext chc, MetaData metadata) {
         Client client = chc.channel().attr(NetworkConnector.REFERENCE).get();

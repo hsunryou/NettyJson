@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 
 */
 // </editor-fold>
-
 public class ClientInitalizer extends ChannelInitializer<SocketChannel> {
     
     private ISession                 _Listener = null;
