@@ -30,10 +30,10 @@ public class ServerHandler extends ChannelInboundHandlerBase<Packet>{
     protected void channelRead0(ChannelHandlerContext ctx, Packet packet) throws Exception {
         try{
             _Logger.info(" - channelRead0 ");
-            _Logger.info("  Server < [{}][{}] ", packet.getMessageFormat(), packet.getMessage());
+            _Logger.info("  Server < [{}][{}] ", packet.getPacketFormat(), packet.getMessage());
             
             Thread.sleep(500);
-            Packet response = new Packet(Packet.MessageFormat.PacketResponse, packet.getMessageType(), "{12345678}");
+            Packet response = new Packet(Packet.PacketFormat.PacketGoogle, "{12345678}");
             ctx.writeAndFlush(response);
 
         }catch(Exception ex){

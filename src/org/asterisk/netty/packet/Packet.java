@@ -4,30 +4,24 @@ import com.google.gson.annotations.SerializedName;
 
 public class Packet {
 
-    public enum MessageFormat {
-        @SerializedName("C")
-        PacketCommand,
-        @SerializedName("R")
-        PacketResponse,
-        @SerializedName("E")
-        PacketEvent
+    public enum PacketFormat {
+        @SerializedName("J")
+        PacketJson,
+        @SerializedName("G")
+        PacketGoogle
     }
 
-    private MessageFormat       format;
-    private String              type = null;
+    private PacketFormat        format;
+    
     private String              message = null;
 
-    public Packet(MessageFormat format, String type, String message) {
+    public Packet(PacketFormat format, String message) {
         this.format = format;
-        this.type = type;
         this.message = message;
     }
 
-    public MessageFormat getMessageFormat() {
+    public PacketFormat getPacketFormat() {
         return format;
-    }
-    public String getMessageType() {
-        return type;
     }
     public String getMessage() {
         return message;
