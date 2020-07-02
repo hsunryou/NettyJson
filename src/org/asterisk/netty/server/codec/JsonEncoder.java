@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import io.netty.util.CharsetUtil;
 import java.util.List;
+import org.asterisk.netty.packet.IPacket;
 import org.asterisk.netty.packet.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,17 @@ public class JsonEncoder extends MessageToMessageEncoder<Packet> {
     @Override
     protected void encode(ChannelHandlerContext chc, Packet packet, List<Object> out) throws Exception {
         _Logger.info(" - encode ");
-        String json = gson.toJson(packet);
+        // <editor-fold defaultstate="collapsed" desc="Packet 전체를 JSON Format으로 전달">
+        /*
+            String json = gson.toJson(packet);
+            ByteBuf buffer = Unpooled.copiedBuffer(json, CharsetUtil.UTF_8);
+            out.add(buffer);
+
+        */
+        // </editor-fold>
+        
+        // 
+        String json = String.format("%c%s", IPacket.PACKET_FORMAT_JSON, packet.getMessage());
         ByteBuf buffer = Unpooled.copiedBuffer(json, CharsetUtil.UTF_8);
         out.add(buffer);
     }

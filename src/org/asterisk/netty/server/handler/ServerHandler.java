@@ -1,6 +1,7 @@
 package org.asterisk.netty.server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
+import org.asterisk.netty.packet.IPacket;
 import org.asterisk.netty.packet.Packet;
 import org.asterisk.netty.server.handler.ChannelInboundHandlerBase;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class ServerHandler extends ChannelInboundHandlerBase<Packet>{
             _Logger.info("  Server < [{}][{}] ", packet.getPacketFormat(), packet.getMessage());
             
             Thread.sleep(500);
-            Packet response = new Packet(Packet.PacketFormat.PacketGoogle, "{12345678}");
+            Packet response = new Packet(IPacket.PACKET_FORMAT_JSON, "{ version=\"10\", format:\"R\", type:\"100\", result:\"success\", code:\"0000\", data:\"01\" }");
             ctx.writeAndFlush(response);
 
         }catch(Exception ex){

@@ -1,11 +1,11 @@
 package org.asterisk.netty.server.codec;
 
-import com.google.gson.Gson;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import io.netty.util.CharsetUtil;
 import java.util.List;
+import org.asterisk.netty.packet.IPacket;
 import org.asterisk.netty.packet.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 // </editor-fold>
 public class JsonDecoder extends MessageToMessageDecoder<ByteBuf> {
 
-    private final Gson gson = new Gson();
+    //private final Gson gson = new Gson();
 
     private static final Logger     _Logger = LoggerFactory.getLogger(JsonDecoder.class);
     public JsonDecoder() {
@@ -34,8 +34,11 @@ public class JsonDecoder extends MessageToMessageDecoder<ByteBuf> {
     @Override
     protected void decode(ChannelHandlerContext ctx, ByteBuf buf, List<Object> out) throws Exception {
         _Logger.info(" - decode ");
-        String json = buf.toString(CharsetUtil.UTF_8);
-        Packet packet = gson.fromJson(json, Packet.class);
+        byte packetformat =  buf.getByte(0);
+        String packetmessage = buf.toString(CharsetUtil.UTF_8);
+        Packet packet = new Packet(packetformat, packetmessage);
+        _Logger.info(" - decode : [{}][{}]", packetformat, packetmessage);
+        //Packet packet = gson.fromJson(json, Packet.class);
         out.add(packet);
     }
 }

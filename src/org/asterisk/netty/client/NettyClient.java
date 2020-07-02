@@ -10,7 +10,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import org.asterisk.netty.packet.IPacket;
 import org.asterisk.netty.packet.Packet;
-import org.asterisk.netty.packet.Packet.PacketFormat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,7 +42,7 @@ public class NettyClient implements ISession{
     public void OnChannelActive( ChannelHandlerContext ctx ) {
         try{
             _Logger.info(" - OnChannelActive : ");
-            Packet packet = new Packet(PacketFormat.PacketJson, "{ \"books\": [ { \"genre\": \"소설\", \"price\": \"100\", \"name\": \"사람은 무엇으로 사는가?\", \"writer\": \"톨스토이\", \"publisher\": \"톨스토이 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"300\", \"name\": \"홍길동전\", \"writer\": \"허균\", \"publisher\": \"허균 출판사\" }, { \"genre\": \"소설\", \"price\": \"900\", \"name\": \"레미제라블\", \"writer\": \"빅토르 위고\", \"publisher\": \"빅토르 위고 출판사\" } ], \"persons\": [ { \"nickname\": \"남궁민수\", \"age\": \"25\", \"name\": \"송강호\", \"gender\": \"남자\" }, { \"nickname\": \"예니콜\", \"age\": \"21\", \"name\": \"전지현\", \"gender\": \"여자\" } ] } ");
+            Packet packet = new Packet(IPacket.PACKET_FORMAT_JSON, "{ version=\"10\", format:\"C\", type:\"100\", userid:\"userid\", password:\"password\" }");
             ctx.writeAndFlush(packet);
             _Logger.info(" Client > [{}][{}] ", packet.getPacketFormat(), packet.getMessage());
         }catch(Exception ex){
