@@ -28,6 +28,10 @@ public class ChannelOnInactiveHandler extends ChannelInboundHandlerAdapter {
             
             ctx.fireChannelInactive();
             _Listener.OnChannelInactive(ctx);
+            
+            _Logger.info(" ");
+            _Logger.info(" ------------------------------------------------------------------------------------------- ");
+            _Logger.info(" ");
         }catch(Exception ex){
             _Logger.error( "* channelInactive Exception:", ex );
         }

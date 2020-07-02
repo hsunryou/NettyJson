@@ -29,7 +29,7 @@ import org.slf4j.LoggerFactory;
 // </editor-fold>
 public class JsonEncoder extends MessageToMessageEncoder<Packet> {
 
-    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    //private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private static final Logger     _Logger = LoggerFactory.getLogger(JsonEncoder.class);
     public JsonEncoder() {

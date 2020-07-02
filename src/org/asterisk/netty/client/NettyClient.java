@@ -8,6 +8,7 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import org.asterisk.netty.message.user.UserLoginMessage;
 import org.asterisk.netty.packet.IPacket;
 import org.asterisk.netty.packet.Packet;
 import org.slf4j.Logger;
@@ -15,7 +16,8 @@ import org.slf4j.LoggerFactory;
 
 
 public class NettyClient implements ISession{
-
+    
+    private static String           _PacketVersion = "01";
     
     private static final Logger     _Logger = LoggerFactory.getLogger(NettyClient.class);
     public NettyClient() {
@@ -42,9 +44,14 @@ public class NettyClient implements ISession{
     public void OnChannelActive( ChannelHandlerContext ctx ) {
         try{
             _Logger.info(" - OnChannelActive : ");
-            Packet packet = new Packet(IPacket.PACKET_FORMAT_JSON, "{ version=\"10\", format:\"C\", type:\"100\", userid:\"userid\", password:\"password\" }");
-            ctx.writeAndFlush(packet);
-            _Logger.info(" Client > [{}][{}] ", packet.getPacketFormat(), packet.getMessage());
+
+            //Packet packet = new Packet(IPacket.PACKET_FORMAT_JSON, "{ \"version\":\"02\", \"format\":\"C\", \"type\":\"010\", \"user\":{ \"grade\":\"A\", \"userid\": \"user1\", \"password\": \"user1\" } }");
+            //ctx.writeAndFlush(packet);
+            
+            UserLoginMessage message = new UserLoginMessage(_PacketVersion, "user9000", "password9000", "A");
+            ctx.writeAndFlush(message);
+
+            _Logger.info(" Client >  UserLoginMessage : [{}][{}][{}] ", message.getVersion(), message.getFormat(), message.getType());
         }catch(Exception ex){
             _Logger.error( "* OnChannelActive Exception:", ex );
         }

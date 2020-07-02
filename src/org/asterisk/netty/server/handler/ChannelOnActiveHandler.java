@@ -23,6 +23,9 @@ public class ChannelOnActiveHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         try{
+            _Logger.info(" ");
+            _Logger.info(" +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ");
+            _Logger.info(" ");
             _Logger.info( " - channelActive ");
 
             ctx.fireChannelActive();

@@ -11,6 +11,8 @@ import io.netty.handler.logging.LoggingHandler;
 import org.asterisk.netty.client.handler.ClientHandler;
 import org.asterisk.netty.server.codec.JsonDecoder;
 import org.asterisk.netty.server.codec.JsonEncoder;
+import org.asterisk.netty.server.codec.MessageDecoder;
+import org.asterisk.netty.server.codec.MessageEncoder;
 import org.asterisk.netty.server.handler.ChannelOnActiveHandler;
 import org.asterisk.netty.server.handler.ChannelOnExceptionHandler;
 import org.asterisk.netty.server.handler.ChannelOnInactiveHandler;
@@ -61,8 +63,15 @@ public class ClientInitalizer extends ChannelInitializer<SocketChannel> {
         pipeline.addLast("FrameEncoder", new LengthFieldPrepender(2, true));
         pipeline.addLast("FrameDecoder", new LengthFieldBasedFrameDecoder(0x80000, 0, 2, -2, 2));
         
+        // ByteBuf <--> Packet
         pipeline.addLast("JsonEncoder", new JsonEncoder());
         pipeline.addLast("JsonDecoder", new JsonDecoder());
+        
+        // Packet <--> Message
+        pipeline.addLast("MessageEncoder", new MessageEncoder());
+        pipeline.addLast("MessageDecoder", new MessageDecoder());
+        
+        
         pipeline.addLast("ClientHandler", new ClientHandler());
         
         pipeline.addLast("ChannelActiveHandler", new ChannelOnActiveHandler(_Listener));
