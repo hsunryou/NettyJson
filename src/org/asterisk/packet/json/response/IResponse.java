@@ -1,4 +1,4 @@
-package org.asterisk.netty.message.response;
+package org.asterisk.packet.json.response;
 
 
 

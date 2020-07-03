@@ -1,4 +1,4 @@
-package org.asterisk.netty.packet;
+package org.asterisk.packet;
 
 
 public interface IPacket {

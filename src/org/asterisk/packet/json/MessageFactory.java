@@ -1,12 +1,12 @@
-package org.asterisk.netty.message;
+package org.asterisk.packet.json;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import org.asterisk.netty.message.response.ResponseMessage;
-import org.asterisk.netty.message.user.UserLoginMessage;
-import org.asterisk.netty.message.user.UserLogoutMessage;
-import org.asterisk.netty.packet.IPacket;
+import org.asterisk.packet.json.response.ResponseMessage;
+import org.asterisk.packet.IPacket;
+import org.asterisk.packet.json.cmd.user.CmdUserLogin;
+import org.asterisk.packet.json.cmd.user.CmdUserLogout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,10 +43,12 @@ public class MessageFactory {
             _Logger.info( " - Command ");
             switch( type ){
                 case IPacket.PACKET_TYPE_USER_LOGIN:
-                    message = gson.fromJson(json, UserLoginMessage.class);
+                    //message = gson.fromJson(json, UserLoginMessage.class);
+                    message = gson.fromJson(json, CmdUserLogin.class);
                     break;
                 case IPacket.PACKET_TYPE_USER_LOGOUT:
-                    message = gson.fromJson(json, UserLogoutMessage.class);
+                    //message = gson.fromJson(json, UserLogoutMessage.class);
+                    message = gson.fromJson(json, CmdUserLogout.class);
                     break;
                 default:
                     _Logger.error( "* Packet[{}] is NOT define", type);
@@ -57,15 +59,7 @@ public class MessageFactory {
         }
         return message;
     }
-    private Message createResponseMessage(){
-        Message message = null;
-        try{
-            
-        }catch(Exception ex){
-            _Logger.error( "* createResponse Exception:", ex );
-        }
-        return message;
-    }
+
     
     
     

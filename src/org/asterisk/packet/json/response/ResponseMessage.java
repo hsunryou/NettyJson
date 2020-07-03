@@ -1,9 +1,9 @@
-package org.asterisk.netty.message.response;
+package org.asterisk.packet.json.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.asterisk.netty.message.IMessage;
-import org.asterisk.netty.message.Message;
+import org.asterisk.packet.json.IMessage;
+import org.asterisk.packet.json.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -3,9 +3,9 @@ package org.asterisk.netty.server.codec;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageDecoder;
 import java.util.List;
-import org.asterisk.netty.message.Message;
-import org.asterisk.netty.message.MessageFactory;
-import org.asterisk.netty.packet.Packet;
+import org.asterisk.packet.json.Message;
+import org.asterisk.packet.json.MessageFactory;
+import org.asterisk.packet.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

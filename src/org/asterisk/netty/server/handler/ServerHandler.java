@@ -1,13 +1,13 @@
 package org.asterisk.netty.server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
-import org.asterisk.netty.message.Message;
-import org.asterisk.netty.message.MessageFactory;
-import org.asterisk.netty.message.response.IResponse;
-import org.asterisk.netty.message.user.User;
-import org.asterisk.netty.message.user.UserLoginMessage;
-import org.asterisk.netty.message.user.UserLogoutMessage;
-import org.asterisk.netty.packet.IPacket;
+import org.asterisk.packet.json.Message;
+import org.asterisk.packet.json.MessageFactory;
+import org.asterisk.packet.json.response.IResponse;
+import org.asterisk.packet.json.cmd.User;
+import org.asterisk.packet.IPacket;
+import org.asterisk.packet.json.cmd.user.CmdUserLogin;
+import org.asterisk.packet.json.cmd.user.CmdUserLogout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,23 +52,26 @@ public class ServerHandler extends ChannelInboundHandlerBase<Message>{
         boolean fire = true, close = false;
         try{
             _Logger.info(" - channelRead0 ");
-            _Logger.info("  Server < [{}][{}][{}] ", msg.getVersion(), msg.getFormat(), msg.getType());
+            _Logger.info("  Server < [Version:{}][Format:{}][Type:{}] ", msg.getVersion(), msg.getFormat(), msg.getType());
             switch( msg.getType() ){
                 case IPacket.PACKET_TYPE_USER_LOGIN:
-                    UserLoginMessage login = (UserLoginMessage)msg;
+                    CmdUserLogin login = (CmdUserLogin)msg;
                     User loginUser = login.getUser();
                     if( loginUser == null ){
                         _Logger.info(" * User is NULL ");
                     } else {
+                        _Logger.info( login.toString() );
                         _Logger.info("   - User : [{}][{}][{}] ", loginUser.getUserid(), loginUser.getPassword(), loginUser.getGrade());
                     }
                     break;
                 case IPacket.PACKET_TYPE_USER_LOGOUT:
-                    UserLogoutMessage logout = (UserLogoutMessage)msg;
+                    //UserLogoutMessage logout = (UserLogoutMessage)msg;
+                    CmdUserLogout logout = (CmdUserLogout)msg;
                     User logoutUser = logout.getUser();
                     if( logoutUser == null ){
                         _Logger.info(" * User is NULL ");
                     } else {
+                        _Logger.info( logout.toString() );
                         _Logger.info("   - User : [{}][{}][{}] ", logoutUser.getUserid(), logoutUser.getPassword(), logoutUser.getGrade());
                     }
                     close = true;

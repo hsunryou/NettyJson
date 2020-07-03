@@ -1,15 +1,12 @@
 package org.asterisk.netty.server.codec;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageEncoder;
 import io.netty.util.CharsetUtil;
 import java.util.List;
-import org.asterisk.netty.packet.IPacket;
-import org.asterisk.netty.packet.Packet;
+import org.asterisk.packet.Packet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +26,6 @@ import org.slf4j.LoggerFactory;
 // </editor-fold>
 public class JsonEncoder extends MessageToMessageEncoder<Packet> {
 
-    //private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private static final Logger     _Logger = LoggerFactory.getLogger(JsonEncoder.class);
     public JsonEncoder() {
@@ -40,17 +36,8 @@ public class JsonEncoder extends MessageToMessageEncoder<Packet> {
     @Override
     protected void encode(ChannelHandlerContext chc, Packet packet, List<Object> out) throws Exception {
         _Logger.info(" - encode ");
-        // <editor-fold defaultstate="collapsed" desc="Packet 전체를 JSON Format으로 전달">
-        /*
-            String json = gson.toJson(packet);
-            ByteBuf buffer = Unpooled.copiedBuffer(json, CharsetUtil.UTF_8);
-            out.add(buffer);
-
-        */
-        // </editor-fold>
-        
-        // 
-        String json = String.format("%c%s", IPacket.PACKET_FORMAT_JSON, packet.getMessage());
+        _Logger.debug( packet.getMessage() );
+        String json = String.format("%c%s", packet.getPacketFormat(), packet.getMessage());
         ByteBuf buffer = Unpooled.copiedBuffer(json, CharsetUtil.UTF_8);
         out.add(buffer);
     }

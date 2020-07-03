@@ -8,9 +8,8 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import org.asterisk.netty.message.user.UserLoginMessage;
-import org.asterisk.netty.packet.IPacket;
-import org.asterisk.netty.packet.Packet;
+import org.asterisk.packet.json.cmd.User;
+import org.asterisk.packet.json.cmd.user.CmdUserLogin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,10 +47,9 @@ public class NettyClient implements ISession{
             //Packet packet = new Packet(IPacket.PACKET_FORMAT_JSON, "{ \"version\":\"02\", \"format\":\"C\", \"type\":\"010\", \"user\":{ \"grade\":\"A\", \"userid\": \"user1\", \"password\": \"user1\" } }");
             //ctx.writeAndFlush(packet);
             
-            UserLoginMessage message = new UserLoginMessage(_PacketVersion, "user9000", "password9000", "A");
-            ctx.writeAndFlush(message);
-
-            _Logger.info(" Client >  UserLoginMessage : [{}][{}][{}] ", message.getVersion(), message.getFormat(), message.getType());
+            CmdUserLogin cmdLogin = new CmdUserLogin(_PacketVersion, new User("user9000", "password9000", "A"));
+            ctx.writeAndFlush(cmdLogin);
+            _Logger.info(" Client >  UserLoginMessage : [{}][{}][{}] <-- {} ", cmdLogin.getVersion(), cmdLogin.getFormat(), cmdLogin.getType(), cmdLogin.toString());
         }catch(Exception ex){
             _Logger.error( "* OnChannelActive Exception:", ex );
         }

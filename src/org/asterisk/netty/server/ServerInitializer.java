@@ -55,7 +55,7 @@ public class ServerInitializer extends ChannelInitializer<SocketChannel> {
                 2       1           12                  1          12        
             최대길이 = 2 Byte  = 16 Bit = 2^16 = 65,536
         */
-        pipeline.addLast(new LoggingHandler(LogLevel.DEBUG));
+        pipeline.addLast(new LoggingHandler(LogLevel.INFO));
         pipeline.addLast("FrameEncoder", new LengthFieldPrepender(2, true));
         pipeline.addLast("FrameDecoder", new LengthFieldBasedFrameDecoder(0x80000, 0, 2, -2, 2));
         

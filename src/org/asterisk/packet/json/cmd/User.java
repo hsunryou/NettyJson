@@ -1,8 +1,7 @@
-package org.asterisk.netty.message.user;
+package org.asterisk.packet.json.cmd;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import org.asterisk.netty.client.handler.ClientHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

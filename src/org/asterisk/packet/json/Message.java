@@ -1,4 +1,4 @@
-package org.asterisk.netty.message;
+package org.asterisk.packet.json;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -26,7 +26,20 @@ public class Message {
     
     private static final Logger     _Logger = LoggerFactory.getLogger(Message.class);
     public Message() {
-        
+        try{
+            
+        }catch(Exception ex){
+            _Logger.error(" * Message Exception:", ex);
+        }
+    }
+    public Message(String version, String format, String type) {
+        try{
+            this.version = version;
+            this.format = format;
+            this.type = type;
+        }catch(Exception ex){
+            _Logger.error(" * Message Exception:", ex);
+        }
     }
 
     public String getVersion() {
@@ -50,5 +63,6 @@ public class Message {
         this.type = type;
     }
     
+    public boolean isValid()            {           return true;                }
 
 }
