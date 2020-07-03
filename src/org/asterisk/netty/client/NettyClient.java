@@ -19,7 +19,7 @@ public class NettyClient implements ISession{
     private static String           _PacketVersion = "01";
     
     private static final Logger     _Logger = LoggerFactory.getLogger(NettyClient.class);
-    public NettyClient() {
+    public NettyClient( String[] args ) {
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             Bootstrap b = new Bootstrap();
@@ -27,8 +27,8 @@ public class NettyClient implements ISession{
             b.channel(NioSocketChannel.class);
             b.option(ChannelOption.SO_KEEPALIVE, true);
             b.handler(new ClientInitalizer(this));
-            
-            ChannelFuture f = b.connect("127.0.0.1", 20000).sync();
+            int port = Integer.parseInt(args[1]);
+            ChannelFuture f = b.connect(args[0], port).sync();
             f.channel().closeFuture().sync();
         } catch(Exception ex){
             _Logger.error( "* NettyClient Exception:", ex );
@@ -66,8 +66,8 @@ public class NettyClient implements ISession{
     
     public static void main(String[] args) {
         try{
-            _Logger.error( "----    main    ----");
-            new NettyClient();
+            _Logger.info( "----    NettyClient {}:{}    ----", args[0], args[1]);
+            new NettyClient( args );
         }catch(Exception ex){
             _Logger.error( "* main Exception:", ex );
         }
