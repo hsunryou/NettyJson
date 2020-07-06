@@ -20,7 +20,6 @@ public class CmdUserLogin extends UserCmd {
     public CmdUserLogin() {
         try{
             
-            
         }catch(Exception ex){
             _Logger.error(" * CmdUserLogin Exception:", ex);
         }

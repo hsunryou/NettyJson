@@ -7,6 +7,7 @@ import org.asterisk.packet.json.response.ResponseMessage;
 import org.asterisk.packet.IPacket;
 import org.asterisk.packet.json.cmd.user.CmdUserLogin;
 import org.asterisk.packet.json.cmd.user.CmdUserLogout;
+import org.asterisk.packet.json.response.BigResponseMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,12 +62,20 @@ public class MessageFactory {
     }
 
     
-    
-    
-    public static ResponseMessage createResponse( Message msg, String result, String code ){
-        ResponseMessage response = null;
+    public static Message createResponse( Message msg, String result, String code ){
+        Message response = null;
         try{
-            response = new ResponseMessage(msg, result, code);
+            switch( msg.getType() ){
+                case IPacket.PACKET_TYPE_USER_LOGIN:
+                    response = new BigResponseMessage(msg, result, code);
+                    break;
+                case IPacket.PACKET_TYPE_USER_LOGOUT:
+                    response = new ResponseMessage(msg, result, code);
+                    break;
+                default:
+                    _Logger.error( "* Response[Message Type: {}] is NOT define", msg.getType());
+                    break;
+            }
         }catch(Exception ex){
             _Logger.error( "* createResponse Exception:", ex );
         }
