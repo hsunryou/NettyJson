@@ -1,6 +1,7 @@
 package org.asterisk.netty.server.handler;
 
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.asterisk.packet.json.Message;
 import org.asterisk.packet.json.MessageFactory;
 import org.asterisk.packet.json.response.IResponse;
@@ -11,9 +12,16 @@ import org.asterisk.packet.json.cmd.user.CmdUserLogout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-//public class ServerHandler extends ChannelInboundHandlerBase<Packet>{
-public class ServerHandler extends ChannelInboundHandlerBase<Message>{
 
+
+// <editor-fold defaultstate="collapsed" desc="ServerHandler">
+/*
+    - 
+
+*/
+// </editor-fold>
+
+public class ServerHandler extends SimpleChannelInboundHandler<Message>{
 
 
     private static final Logger _Logger = LoggerFactory.getLogger(ServerHandler.class);

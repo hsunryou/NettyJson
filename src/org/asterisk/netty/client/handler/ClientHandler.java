@@ -1,11 +1,11 @@
 package org.asterisk.netty.client.handler;
 
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.asterisk.packet.json.IMessage;
 import org.asterisk.packet.json.Message;
 import org.asterisk.packet.json.response.ResponseMessage;
 import org.asterisk.packet.IPacket;
-import org.asterisk.netty.server.handler.ChannelInboundHandlerBase;
 import org.asterisk.packet.json.cmd.User;
 import org.asterisk.packet.json.cmd.user.CmdUserLogout;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
 */
 // </editor-fold>
 
-public class ClientHandler extends ChannelInboundHandlerBase<Message>{
+public class ClientHandler extends SimpleChannelInboundHandler<Message>{
     
     private static String           _PacketVersion = "01";
     
